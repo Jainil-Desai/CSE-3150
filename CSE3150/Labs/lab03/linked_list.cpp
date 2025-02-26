@@ -1,4 +1,6 @@
 #include "linked_list.h"
+#include <iostream>
+#include <stdexcept>
 
 Node::Node(const Node& other) {
     data = other.data;
@@ -36,7 +38,7 @@ void print_linked_list(Node* head) {
 
 void delete_entire_linked_list(Node*& head) {
     if (head) {
-        delete head; 
+        delete head;
         head = nullptr;
     }
 }
@@ -61,7 +63,7 @@ void delete_list_element(Node*& head, int node_number) {
     if (node_number == 0) {
         Node* temp = head;
         head = head->next;
-        temp->next = nullptr; 
+        temp->next = nullptr;
         delete temp;
         return;
     }
@@ -74,7 +76,24 @@ void delete_list_element(Node*& head, int node_number) {
     if (!current || !current->next) throw std::out_of_range("Node number out of range");
 
     Node* temp = current->next;
-    current->next = current->next->next; 
+    current->next = current->next->next;
     temp->next = nullptr;
     delete temp;
+}
+
+bool has_positive_prefix_sum(Node* head) {
+    int sum = 0;
+    while (head) {
+        sum += head->data;
+        if (sum <= 0) return false;
+        head = head->next;
+    }
+    return true;
+}
+
+void pointer_jumping(Node* head) {
+    while (head && head->next) {
+        head->next = head->next->next; // Skip every other node
+        head = head->next;
+    }
 }

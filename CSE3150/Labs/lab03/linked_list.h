@@ -26,5 +26,7 @@ void print_linked_list(Node* head);
 void delete_entire_linked_list(Node*& head);
 int get_linked_list_data_item_value(Node* head, int node_number);
 void delete_list_element(Node*& head, int node_number);
+bool has_positive_prefix_sum(Node* head);
+void pointer_jumping(Node* head);
 
 #endif 

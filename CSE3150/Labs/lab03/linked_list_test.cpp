@@ -69,4 +69,33 @@ TEST_CASE("Linked List Functionality Tests") {
 
         CHECK(head == nullptr);
     }
+
+    SUBCASE("Prefix Sum Check") {
+        std::vector<int> values = {1, 2, 3, 4};
+        Node* head = build_linked_list(values);
+        CHECK(has_positive_prefix_sum(head) == true);
+        delete_entire_linked_list(head);
+
+        std::vector<int> neg_values = {-1, -2, -3};
+        head = build_linked_list(neg_values);
+        CHECK(has_positive_prefix_sum(head) == false);
+        delete_entire_linked_list(head);
+    }
+
+    SUBCASE("Pointer Jumping") {
+        std::vector<int> values = {1, 2, 3, 4, 5};
+        Node* head = build_linked_list(values);
+
+        pointer_jumping(head);
+
+        std::stringstream buffer;
+        std::streambuf* old = std::cout.rdbuf(buffer.rdbuf());
+        print_linked_list(head);
+        std::cout.rdbuf(old);
+
+        std::string output = buffer.str();
+        CHECK(output == "1 -> 3 -> 5 -> nullptr\n");
+
+        delete_entire_linked_list(head);
+    }
 }
